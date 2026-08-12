@@ -24,3 +24,59 @@ This repository demonstrates complete PyTorch fundamentals: dynamic GPU accelera
 ## 🏗️ Model Architecture
 
 The neural network takes a flattened $28 \times 28$ grayscale image (784 features) and outputs unnormalized log-probabilities (logits) across 10 output classes ($0\text{--}9$):
+
+
+Input Tensor [Batch, 1, 28, 28]
+│
+▼ (Reshape / Flatten)
+Input Features [Batch, 784]
+│
+▼ nn.Linear(784, 100)
+Hidden Layer 1 [Batch, 100]
+│
+▼ nn.ReLU()
+Non-linear Activation [Batch, 100]
+│
+▼ nn.Linear(100, 10)
+Output Logits [Batch, 10]
+
+
+---
+
+## ⚙️ Hyperparameters & Training Configuration
+
+| Parameter | Configuration / Value |
+| :--- | :--- |
+| **Dataset** | MNIST (60,000 train / 10,000 test) |
+| **Input Dimension** | 784 ($28 \times 28$ pixels) |
+| **Hidden Units** | 100 |
+| **Output Classes** | 10 (digits 0 to 9) |
+| **Batch Size** | 100 |
+| **Optimizer** | `torch.optim.Adam` |
+| **Learning Rate** | 0.001 |
+| **Loss Function** | `nn.CrossEntropyLoss()` |
+| **Epochs** | 10 |
+
+---
+
+## 📊 Experimental Results
+
+| Metric | Result |
+| :--- | :--- |
+| **Final Training Loss** | `~0.035` |
+| **Test Accuracy** | **`~97.8% - 98.2%`** |
+| **Inference Latency** | `< 1.5ms` per batch on GPU |
+
+### Visual Diagnostics
+* **Learning Curves:** Side-by-side plots displaying smooth convergence of Cross-Entropy loss and generalization on the unseen test set across epochs.
+* **Inference Grid:** A $4 \times 4$ visual batch test displaying predicted digits vs. true labels.
+
+---
+
+## 📁 Repository Structure
+
+```text
+├── 01_pytorch_mnist_mlp_classifier.ipynb   # Complete Jupyter / Colab training notebook
+├── mnist_mlp_weights.pth                  # Serialized PyTorch model weights (state_dict)
+├── requirements.txt                       # Project dependencies
+└── README.md                              # Project documentation
